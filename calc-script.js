@@ -54,7 +54,6 @@ function removePress(e) {
 
 
 const fillScreenbtn = function(e){
-    
     if(e == 'del'){
         calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
         return;
@@ -71,8 +70,6 @@ const fillScreenbtn = function(e){
 
     else if(e == '='){
         calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
-        
-        let calcArray;
 
         if(calcScreen.textContent.includes("+")){
             opSymbol = "+";
@@ -96,16 +93,11 @@ const fillScreenbtn = function(e){
         
         calcResult = operator(Number(num1),opSymbol,Number(num2));
         calcScreen.textContent = calcResult;
-        console.log(num1);
-        console.log(opSymbol);
-        console.log(num2);
 
     }
-
 };
 
 const fillScreenkey = function(e){
-
     const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
     if(!key)return;
 
@@ -125,9 +117,29 @@ const fillScreenkey = function(e){
     }
 
     else if(e.key == 'Enter'){
+        calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-5);
 
+        if(calcScreen.textContent.includes("+")){
+            opSymbol = "+";
+            calcArray = calcScreen.textContent.split("+")
+        }
+        else if(calcScreen.textContent.includes("-")){
+            opSymbol = "-";
+            calcArray = calcScreen.textContent.split("-")
+        }
+        else if(calcScreen.textContent.includes("*")){
+            opSymbol = "*";
+            calcArray = calcScreen.textContent.split("*")
+        }
+        else if(calcScreen.textContent.includes("/")){
+            opSymbol = "/";
+            calcArray = calcScreen.textContent.split("/")
+        }
 
-        calcResult = operator(num1,symbol,num2);
+        num1 = calcArray[0];
+        num2 = calcArray[1];
+        
+        calcResult = operator(Number(num1),opSymbol,Number(num2));
         calcScreen.textContent = calcResult;
 
     }
@@ -139,6 +151,7 @@ let calcResult = 0;
 let num1 = 0;
 let num2 = 0;
 let opSymbol = "";
+let calcArray = "";
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) =>{
