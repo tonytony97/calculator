@@ -9,34 +9,40 @@
     <script src="calc-script.js" defer></script>
 </head>
 <body>
+
     <h1>My Calculator!</h1>
+    
     <calc>
-        <screen>Hi!</screen>
+        <screen></screen>
+        
         <buttons>
+        
+            <digits>
+                <button data-key="27" class="edit">Clear</button>
+                <button data-key="8" class="edit">Del</button>
+                <button data-key="55" class="digit" value="7">7</button>
+                <button data-key="56" class="digit" value="8">8</button>
+                <button data-key="57" class="digit" value="9">9</button>
+                <button data-key="52" class="digit" value="4">4</button>
+                <button data-key="53" class="digit" value="5">5</button>
+                <button data-key="54" class="digit" value="6">6</button>
+                <button data-key="49" class="digit" value="1">1</button>
+                <button data-key="50" class="digit" value="2">2</button>
+                <button data-key="51" class="digit" value="3">3</button>
+                <button data-key="48" class="digit" value="0">0</button>
+                <button data-key="110" class="digit" value=".">.</button>
+            </digits>
 
-            <button id="clear" class="edit">Clear</button>
-            <button id="delete" class="edit">Del</button>
-
-            <button id="dot" class="digit">.</button>
-            <button id="0" class="digit">0</button>
-            <button id="1" class="digit">1</button>
-            <button id="2" class="digit">2</button>
-            <button id="3" class="digit">3</button>
-            <button id="4" class="digit">4</button>
-            <button id="5" class="digit">5</button>
-            <button id="6" class="digit">6</button>
-            <button id="7" class="digit">7</button>
-            <button id="8" class="digit">8</button>
-            <button id="9" class="digit">9</button>
-
-
-            <button id="add" class="operator">+</button>
-            <button id="subs" class="operator">-</button>
-            <button id="mult" class="operator">X</button>
-            <button id="divd" class="operator">/</button>
-            <button id="result" class="operator">=</button>
+            <operators>
+                <button data-key="107" class="operator" value="+">+</button>
+                <button data-key="109" class="operator" value="-">-</button>
+                <button data-key="106" class="operator" value="*">X</button>
+                <button data-key="111" class="operator" value="/">/</button>
+                <button data-key="13" class="operator" value="=">=</button>
+            </operators>
 
         </buttons>
+
     </calc>
 
 

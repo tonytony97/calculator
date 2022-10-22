@@ -11,7 +11,7 @@ const subtract = function(num1,num2) {
 const multiply = function(num1,num2) {
     let result = num1*num2
     return result;
-  };
+};
 
 const divide = function(num1,num2){
     if(num2 == 0){
@@ -20,12 +20,10 @@ const divide = function(num1,num2){
     }
     let result = num1/num2;
     return result;
-  }
+};
 
 const operator = function(num1,symbol,num2){
-    
     let result = 0;
-    
     
         if(symbol == '+'){
             result = add(num1,num2);
@@ -51,25 +49,42 @@ const operator = function(num1,symbol,num2){
             return result;
         }
 
+};
+
+function removePress(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('pressed');
 }
 
 const fillScreen = function(e){
 
-    /*const numBtn = document.querySelector(`button[id="${e.numCode}"]`)*/
     calcScreen.textContent += e;
 
-}
+};
+
+const fillScreenkey = function(e){
+
+    const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+    key.classList.add('pressed');
+    calcScreen.textContent += e.key;
+
+};
+
+
 
 let calcScreen = document.querySelector('screen');
-const numBtns = document.querySelectorAll('button');
-numBtns.forEach((button) =>{
-    button.addEventListener('click',function(){
 
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) =>{
+
+    button.addEventListener('click',function(){
+        button.classList.add('pressed');
         fillScreen(button.value);
+
     })
 });
+  
+buttons.forEach(button => button.addEventListener('transitionend', removePress));
 
-window.addEventListener('keypress',function(){
 
-
-});
+window.addEventListener('keydown',fillScreenkey);
