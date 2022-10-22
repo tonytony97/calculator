@@ -12,38 +12,39 @@
 
     <h1>My Calculator!</h1>
     
-    <calc>
-        <screen></screen>
+    <div id ="calc">
         
-        <buttons>
+        <div id="screen"></div>
         
-            <digits>
-                <button data-key="27" class="edit">Clear</button>
-                <button data-key="8" class="edit">Del</button>
-                <button data-key="55" class="digit" value="7">7</button>
-                <button data-key="56" class="digit" value="8">8</button>
-                <button data-key="57" class="digit" value="9">9</button>
-                <button data-key="52" class="digit" value="4">4</button>
-                <button data-key="53" class="digit" value="5">5</button>
-                <button data-key="54" class="digit" value="6">6</button>
-                <button data-key="49" class="digit" value="1">1</button>
-                <button data-key="50" class="digit" value="2">2</button>
-                <button data-key="51" class="digit" value="3">3</button>
-                <button data-key="48" class="digit" value="0">0</button>
+        <div id="buttons">
+        
+            <div id ="digits">
+                <button data-key="27" class="edit" value="clear">Clear</button>
+                <button data-key="8" class="edit" value="del">Del</button>
+                <button data-key="103" class="digit" value="7">7</button>
+                <button data-key="104" class="digit" value="8">8</button>
+                <button data-key="105"  class="digit" value="9">9</button>
+                <button data-key="100" class="digit" value="4">4</button>
+                <button data-key="101" class="digit" value="5">5</button>
+                <button data-key="102" class="digit" value="6">6</button>
+                <button data-key="97" class="digit" value="1">1</button>
+                <button data-key="98" class="digit" value="2">2</button>
+                <button data-key="99" class="digit" value="3">3</button>
+                <button data-key="96" class="digit" value="0">0</button>
                 <button data-key="110" class="digit" value=".">.</button>
-            </digits>
+        </div>
 
-            <operators>
+            <div id="operators">
                 <button data-key="107" class="operator" value="+">+</button>
                 <button data-key="109" class="operator" value="-">-</button>
                 <button data-key="106" class="operator" value="*">X</button>
                 <button data-key="111" class="operator" value="/">/</button>
                 <button data-key="13" class="operator" value="=">=</button>
-            </operators>
+            </div>
 
-        </buttons>
+        </div>
 
-    </calc>
+    </div>
 
 
 </body>
