@@ -34,7 +34,7 @@ const operator = function(num1,symbol,num2){
             return result;
         }
 
-        else if(symbol == '*' || symbol.toLowerCase() == 'x'){
+        else if(symbol == '*'){
             result = multiply(num1,num2);
             return result;
         }
@@ -52,7 +52,6 @@ function removePress(e) {
     e.target.classList.remove('pressed');
 }
 
-
 const fillScreenbtn = function(e){
     if(e == 'del'){
         calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
@@ -69,8 +68,9 @@ const fillScreenbtn = function(e){
     }
 
     else if(e == '='){
-        calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
-
+        
+        calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);   
+        
         if(calcScreen.textContent.includes("+")){
             opSymbol = "+";
             calcArray = calcScreen.textContent.split("+")
@@ -92,9 +92,39 @@ const fillScreenbtn = function(e){
         num2 = calcArray[1];
         
         calcResult = operator(Number(num1),opSymbol,Number(num2));
+
+        if(isNaN(calcResult)){
+            calcScreen.textContent = '';
+            calcResult= 0;
+            alert("Input 2 numbers and an operator!")
+            return;
+        }
+
         calcScreen.textContent = calcResult;
 
+        if(calcScreen.textContent.includes(".") && calcScreen.textContent.length >10){
+            calcScreen.textContent = calcResult.toFixed(3);
+        }
+
     }
+
+    /*else if(calcScreen.textContent.includes("+")||
+     calcScreen.textContent.includes("-")||
+     calcScreen.textContent.includes("*")||
+     calcScreen.textContent.includes("/")){
+
+        if(e == '+'||
+        e == '-'||
+        e == '*'||
+        e == '/'){
+
+
+
+        }
+
+     }*/
+
+
 };
 
 const fillScreenkey = function(e){
@@ -141,7 +171,10 @@ const fillScreenkey = function(e){
         
         calcResult = operator(Number(num1),opSymbol,Number(num2));
         calcScreen.textContent = calcResult;
-
+        
+        if(calcScreen.textContent.includes(".") && calcScreen.textContent.length >10){
+            calcScreen.textContent = calcResult.toFixed(3);
+        }
     }
 
 };
@@ -164,5 +197,4 @@ buttons.forEach((button) =>{
 });
   
 buttons.forEach(button => button.addEventListener('transitionend', removePress));
-
 window.addEventListener('keydown',fillScreenkey);
