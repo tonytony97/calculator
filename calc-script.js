@@ -1,4 +1,3 @@
-
 let calcResult = 0;
 let num1 = 0;
 let num2 = 0;
@@ -84,7 +83,9 @@ function makeMatharray(string){
 
     num1 = calcArray[0];
     num2 = calcArray[1];
-    
+    if(num2 == ""){
+        num2 = num1;
+    }
     calcResult = operator(Number(num1),opSymbol,Number(num2));
 
     if(isNaN(calcResult)){
@@ -173,7 +174,7 @@ const fillScreenkey = function(e){
 
         calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
         return;
-        
+
     }
     
 
