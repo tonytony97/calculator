@@ -1,3 +1,12 @@
+
+let calcResult = 0;
+let num1 = 0;
+let num2 = 0;
+let opSymbol = "";
+let opCount = 0;
+let opLast = "";
+let calcArray = "";
+
 const add = function(num1,num2) {
     let result = num1 + num2;
     return result;
@@ -47,145 +56,165 @@ const operator = function(num1,symbol,num2){
         return;
 };
 
+
+
 function removePress(e) {
     if (e.propertyName !== 'transform') return;
     e.target.classList.remove('pressed');
 }
 
-const fillScreenbtn = function(e){
-    if(e == 'del'){
-        calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
+function makeMatharray(string){
+
+    if(string.includes("+")){
+        opSymbol = "+";
+        calcArray = string.split("+")
+    }
+    else if(string.includes("-")){
+        opSymbol = "-";
+        calcArray = string.split("-")
+    }
+    else if(string.includes("*")){
+        opSymbol = "*";
+        calcArray = string.split("*")
+    }
+    else if(string.includes("/")){
+        opSymbol = "/";
+        calcArray = string.split("/")
+    }
+
+    num1 = calcArray[0];
+    num2 = calcArray[1];
+    
+    calcResult = operator(Number(num1),opSymbol,Number(num2));
+
+    if(isNaN(calcResult)){
+        string = '';
+        calcResult= 0;
+        alert("Input 2 numbers and an operator!")
         return;
     }
 
-    calcScreen.textContent += e;
+    string = calcResult;
+
+    if(string.toString().includes(".") && string.length >10){
+        string = calcResult.toFixed(3);
+    }
     
+    return string;
+}
+
+const fillScreenbtn = function(e){
+
+    if(e == 'del'){
+
+        if(calcScreen.textContent.slice(-1) == '+'|| calcScreen.textContent.slice(-1) == '-'||
+         calcScreen.textContent.slice(-1) == '*'||
+        calcScreen.textContent.slice(-1) == '/'){
+            opCount -= 1;
+        }
+
+        calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
+        calcResult = calcScreen.textContent;
+        return;
+
+    }
+
+    calcScreen.textContent += e;
+
+    if(e == '+'|| e == '-'|| e == '*' || e == '/'){
+        opCount += 1;
+    }
+
     if(e == 'clear'){
 
         calcResult = 0;
         calcScreen.textContent = ""
+        num1 = 0;
+        num2 = 0;
+        opSymbol = "";
+        opCount = 0;
 
     }
 
-    else if(e == '='){
+    if(e == '='){
         
         calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);   
-        
-        if(calcScreen.textContent.includes("+")){
-            opSymbol = "+";
-            calcArray = calcScreen.textContent.split("+")
-        }
-        else if(calcScreen.textContent.includes("-")){
-            opSymbol = "-";
-            calcArray = calcScreen.textContent.split("-")
-        }
-        else if(calcScreen.textContent.includes("*")){
-            opSymbol = "*";
-            calcArray = calcScreen.textContent.split("*")
-        }
-        else if(calcScreen.textContent.includes("/")){
-            opSymbol = "/";
-            calcArray = calcScreen.textContent.split("/")
-        }
-
-        num1 = calcArray[0];
-        num2 = calcArray[1];
-        
-        calcResult = operator(Number(num1),opSymbol,Number(num2));
-
-        if(isNaN(calcResult)){
-            calcScreen.textContent = '';
-            calcResult= 0;
-            alert("Input 2 numbers and an operator!")
-            return;
-        }
-
-        calcScreen.textContent = calcResult;
-
-        if(calcScreen.textContent.includes(".") && calcScreen.textContent.length >10){
-            calcScreen.textContent = calcResult.toFixed(3);
-        }
+        calcScreen.textContent = makeMatharray(calcScreen.textContent)
+        opCount = 0;
 
     }
 
-    /*else if(calcScreen.textContent.includes("+")||
-     calcScreen.textContent.includes("-")||
-     calcScreen.textContent.includes("*")||
-     calcScreen.textContent.includes("/")){
+    if(opCount == 2){
+        
+        opLast= calcScreen.textContent.slice(-1);
+        calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
+        calcScreen.textContent= makeMatharray(calcScreen.textContent);
+        calcScreen.textContent += opLast;
+        opCount = 1;
 
-        if(e == '+'||
-        e == '-'||
-        e == '*'||
-        e == '/'){
-
-
-
-        }
-
-     }*/
-
+    }
 
 };
 
 const fillScreenkey = function(e){
+    
     const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
     if(!key)return;
 
     key.classList.add('pressed');
 
     if(e.key == 'Backspace'){
+        
+        if(calcScreen.textContent.slice(-1) == '+'|| calcScreen.textContent.slice(-1) == '-'||
+         calcScreen.textContent.slice(-1) == '*'||
+        calcScreen.textContent.slice(-1) == '/'){
+            opCount -= 1;
+        }
+
         calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
         return;
+        
     }
+    
+
     calcScreen.textContent += e.key;
+
+    if(e.key == '+'|| e.key == '-'|| e.key == '*' || e.key == '/'){
+        opCount += 1;
+    }
     
     if(e.key == 'Escape'){
 
         calcResult = 0;
         calcScreen.textContent = ""
+        num1 = 0;
+        num2 = 0;
+        opSymbol = "";
+        opCount = 0;
 
     }
 
     else if(e.key == 'Enter'){
+
         calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-5);
+        calcScreen.textContent = makeMatharray(calcScreen.textContent)
+        opCount = 0;
 
-        if(calcScreen.textContent.includes("+")){
-            opSymbol = "+";
-            calcArray = calcScreen.textContent.split("+")
-        }
-        else if(calcScreen.textContent.includes("-")){
-            opSymbol = "-";
-            calcArray = calcScreen.textContent.split("-")
-        }
-        else if(calcScreen.textContent.includes("*")){
-            opSymbol = "*";
-            calcArray = calcScreen.textContent.split("*")
-        }
-        else if(calcScreen.textContent.includes("/")){
-            opSymbol = "/";
-            calcArray = calcScreen.textContent.split("/")
-        }
+    }
+        
+    if(opCount == 2){
+        
+        opLast= calcScreen.textContent.slice(-1);
+        calcScreen.textContent = calcScreen.textContent.slice(0,calcScreen.textContent.length-1);
+        calcScreen.textContent= makeMatharray(calcScreen.textContent);
+        calcScreen.textContent += opLast;
+        opCount = 1;
 
-        num1 = calcArray[0];
-        num2 = calcArray[1];
-        
-        calcResult = operator(Number(num1),opSymbol,Number(num2));
-        calcScreen.textContent = calcResult;
-        
-        if(calcScreen.textContent.includes(".") && calcScreen.textContent.length >10){
-            calcScreen.textContent = calcResult.toFixed(3);
-        }
     }
 
 };
 
 let calcScreen = document.querySelector('#screen');
-let calcResult = 0;
-let num1 = 0;
-let num2 = 0;
-let opSymbol = "";
-let calcArray = "";
-
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) =>{
 
